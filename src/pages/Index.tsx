@@ -1,11 +1,20 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState } from 'react';
+import Calendar from '@/components/Calendar';
+import { Button } from '@/components/ui/button';
+import { SignIn } from '@/components/SignIn';
 
 const Index = () => {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  if (!isSignedIn) {
+    return <SignIn onSignIn={() => setIsSignedIn(true)} />;
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
+      <div className="max-w-7xl mx-auto">
+        <Calendar />
       </div>
     </div>
   );

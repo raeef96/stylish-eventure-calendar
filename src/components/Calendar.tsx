@@ -32,13 +32,13 @@ const Calendar = () => {
 
   return (
     <div className="relative">
-      <div className="absolute right-4 top-4 z-10">
+      <div className="mb-4 flex justify-end">
         <Button onClick={() => setShowEventModal(true)} className="shadow-lg">
           <Plus className="mr-2 h-4 w-4" />
           Add Event
         </Button>
       </div>
-      <div className="bg-card rounded-xl shadow-xl p-4 mt-16">
+      <div className="bg-card rounded-xl shadow-xl p-4">
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"

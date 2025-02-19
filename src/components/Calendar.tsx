@@ -5,14 +5,17 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
 import { EventModal } from './EventModal';
 import { useToast } from '@/components/ui/use-toast';
+import { ViewEventModal } from './ViewEventModal';
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
   const [showEventModal, setShowEventModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const { toast } = useToast();
 
   const handleDateSelect = (selectInfo) => {
@@ -28,6 +31,23 @@ const Calendar = () => {
       description: "Your event has been successfully added to the calendar.",
       duration: 3000,
     });
+  };
+
+  const handleEventClick = (clickInfo) => {
+    setSelectedEvent(clickInfo.event);
+    setShowViewModal(true);
+  };
+
+  const handleEventDelete = () => {
+    if (selectedEvent) {
+      setEvents(events.filter(event => event !== selectedEvent.extendedProps._originalEvent));
+      setShowViewModal(false);
+      toast({
+        title: "Event deleted",
+        description: "The event has been successfully removed from your calendar.",
+        duration: 3000,
+      });
+    }
   };
 
   return (
@@ -50,6 +70,7 @@ const Calendar = () => {
           editable={true}
           selectable={true}
           select={handleDateSelect}
+          eventClick={handleEventClick}
           events={events}
           height="auto"
         />
@@ -60,6 +81,14 @@ const Calendar = () => {
           onClose={() => setShowEventModal(false)}
           onAdd={handleEventAdd}
           selectedDate={selectedDate}
+        />
+      )}
+      {showViewModal && selectedEvent && (
+        <ViewEventModal
+          isOpen={showViewModal}
+          onClose={() => setShowViewModal(false)}
+          event={selectedEvent}
+          onDelete={handleEventDelete}
         />
       )}
     </div>

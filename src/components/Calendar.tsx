@@ -26,7 +26,7 @@ const Calendar = () => {
   const handleEventAdd = (event) => {
     const newEvent = {
       ...event,
-      _originalEvent: event  // Store reference to original event
+      _originalEvent: event
     };
     setEvents([...events, newEvent]);
     setShowEventModal(false);
@@ -44,7 +44,6 @@ const Calendar = () => {
 
   const handleEventDelete = () => {
     if (selectedEvent) {
-      // Use the event ID to filter out the deleted event
       setEvents(events.filter(event => event.id !== selectedEvent.id));
       setShowViewModal(false);
       toast({
@@ -56,14 +55,14 @@ const Calendar = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative px-2 sm:px-0">
       <div className="mb-4 flex justify-end">
-        <Button onClick={() => setShowEventModal(true)} className="shadow-lg">
+        <Button onClick={() => setShowEventModal(true)} className="shadow-lg w-full sm:w-auto">
           <Plus className="mr-2 h-4 w-4" />
           Add Event
         </Button>
       </div>
-      <div className="bg-card rounded-xl shadow-xl p-4">
+      <div className="bg-card rounded-xl shadow-xl p-2 sm:p-4 overflow-x-auto">
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
@@ -78,6 +77,8 @@ const Calendar = () => {
           eventClick={handleEventClick}
           events={events}
           height="auto"
+          windowResizeDelay={0}
+          handleWindowResize={true}
         />
       </div>
       {showEventModal && (

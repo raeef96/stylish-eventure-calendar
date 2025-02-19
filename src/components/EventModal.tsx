@@ -33,6 +33,7 @@ export const EventModal = ({ isOpen, onClose, onAdd, selectedDate }) => {
       backgroundColor: color,
       borderColor: color,
       extendedProps: { tag },
+      id: Date.now().toString(), // Add unique ID for each event
     };
 
     onAdd(event);

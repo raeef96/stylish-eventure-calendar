@@ -24,7 +24,11 @@ const Calendar = () => {
   };
 
   const handleEventAdd = (event) => {
-    setEvents([...events, event]);
+    const newEvent = {
+      ...event,
+      _originalEvent: event  // Store reference to original event
+    };
+    setEvents([...events, newEvent]);
     setShowEventModal(false);
     toast({
       title: "Event created",

@@ -44,7 +44,8 @@ const Calendar = () => {
 
   const handleEventDelete = () => {
     if (selectedEvent) {
-      setEvents(events.filter(event => event !== selectedEvent.extendedProps._originalEvent));
+      // Use the event ID to filter out the deleted event
+      setEvents(events.filter(event => event.id !== selectedEvent.id));
       setShowViewModal(false);
       toast({
         title: "Event deleted",
